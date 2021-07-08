@@ -20,7 +20,7 @@
 
 (defn data
 
-  ""
+  "Retrieves the data map associated with the given `alias`."
 
   [ctx alias]
 
@@ -32,7 +32,7 @@
 
 (defn dev
 
-  ""
+  "Retrieves dev aliases related to the given `alias`."
 
   [ctx alias]
 
@@ -45,7 +45,7 @@
 
 (defn dev+
 
-  ""
+  "Like [[dev]] but also retrieves transitive dev aliases."
 
 
   ([ctx]
@@ -64,7 +64,7 @@
 
 (defn main-class
 
-  ""
+  "Retrieves the main class associated with `alias`."
 
 
   ([ctx]
@@ -82,7 +82,7 @@
 
 (defn path+
 
-  ""
+  "Retrieves all extra paths specified by the given collection of aliases."
 
   [ctx alias+]
 
@@ -96,7 +96,10 @@
 
 (defn related+
 
-  ""
+  "Retrieves aliases related to `alias`.
+
+   `kw` is the keyword query in the alias data for finding that list of aliases. If nothing if found, a default alias is created
+   by qualified `alias` under `default-ns` and that default alias is returned in a vector if it exists."
 
   [ctx kw default-ns alias]
 
@@ -112,7 +115,7 @@
 
 (defn root
 
-  ""
+  "Retrieves the root path of the given `alias`."
 
   [ctx alias]
 
@@ -123,7 +126,7 @@
 
 (defn test
 
-  ""
+  "Retrieves test aliases related to the given `alias`."
 
   [ctx alias]
 
@@ -136,7 +139,7 @@
 
 (defn test+
 
-  ""
+  "Like [[test]] but also retrieves transitive test aliases."
 
 
   ([ctx]

@@ -5,7 +5,8 @@
 
 (ns helins.maestro.aggr
   
-  ""
+  "Functions that can be used with [[helins.maestro/walk]] as aggregators when [[helins/maestro/aggr]]
+   is not enough."
 
   {:author "Adam Helinski"}
 
@@ -17,7 +18,7 @@
 
 (defn alias
 
-  ""
+  "Conjs the given `alias` to `:maestro/require`."
 
   [ctx alias _config]
 
@@ -30,11 +31,13 @@
 
 (defn env
 
-  ""
+  "Merges the `:maestro/env` map from the alias's `data` with `:maestro/env` in `ctx`.
+  
+   Provides a way for specifying environment variables in aliases."
 
-  [acc _alias config]
+  [ctx _alias data]
 
-  (update acc
+  (update ctx
           :maestro/env
           merge
-          (:maestro/env config)))
+          (:maestro/env data)))
