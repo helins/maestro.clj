@@ -1,0 +1,97 @@
+{:paths ["project/core/src/main"
+         "project/depstar/src/main"
+         "project/kaocha/src/main"]
+
+
+
+ :tasks {cp
+
+         {:doc      "Pretty prints the class path received as STDIN"
+          :requires ([helins.maestro.cp :as $.cp])
+          :task     ($.cp/print-stdin)}
+
+
+         cp:rm
+
+         {:doc      "Deletes the computed classpath"
+          :requires ([helins.maestro.cp :as $.cp])
+          :task     ($.cp/rm)}
+
+
+         dev
+
+         {:doc      "Starts dev mode (using '-M' by default) ; same arguments as Clojure CLI"
+          :requires ([helins.maestro.run :as $.run])
+          :task     ($.run/dev)}
+                                  
+
+
+         dev:templ:copy
+
+         {:doc      "In the directory given as argument, copies `./dev_templ.clj` (public) to `./dev.clj` (private)"
+          :requires ([helins.maestro.dev.templ.run :as $.dev.templ.run])
+          :task     ($.dev.templ.run/copy)}
+
+
+         dev:templ:rm
+
+         {:doc      "In the directory given as argument, deletes `./dev.clj`"
+          :requires ([helins.maestro.dev.templ.run :as $.dev.templ.run])
+          :task     ($.dev.templ/rm)}
+
+
+         jar
+
+         {:doc      "Packages the given aliases in a jar ; same arguments as Depstar"
+          :requires ([helins.maestro.depstar.run :as $.depstar.run])
+          :task     ($.depstar.run/jar)}
+
+
+         lint
+
+         {:doc  "Starts Clj-kondo on the path given as argument ; understands globs"
+          :task (shell (str "clj-kondo --lint "
+                            (first *command-line-args*)))}
+
+
+         lint:import
+
+         {:doc  "Initializes Clj-kondo and copies configuration files from dependencies ; uses classpath received as STDIN"
+          :task (shell (format "clj-kondo --lint '%s' --dependencies --parallel --copy-configs"
+                               (slurp *in*)))}
+
+
+         run-M
+
+         {:doc      "Executes Clojure using '-M', calling the main class specified in the alias"
+          :requires ([helins.maestro.run :as $.run])
+          :task     ($.run/main-class)}
+
+
+         run-X
+
+         {:doc      "Executes Clojure using '-X', using the function specified in the alias"
+          :requires ([helins.maestro.run :as $.run])
+          :task     ($.run/function)}
+
+
+         test
+
+         {:doc      "Runs tests on the JVM for the given aliases ; accepts Kaocha CLI arguments"
+          :requires ([helins.maestro.kaocha.run :as $.kaocha.run])
+          :task     ($.kaocha.run/broad)}
+
+
+
+         test:narrow
+
+         {:doc      "Like `test` but tests only the given aliases, not transitive ones"
+          :requires ([helins.maestro.kaocha.run :as $.kaocha.run])
+          :task     ($.kaocha.run/narrow)}
+
+
+         uberjar
+
+         {:doc      "Packages the given aliases in an uberjar ; same arguments as Depstart"
+          :requires ([helins.maestro.depstar.run :as $.depstar.run])
+          :task     ($.depstar.run/uberjar)}}}

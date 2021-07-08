@@ -1,0 +1,103 @@
+
+
+{;; Needed by `:ext/depstar` to work properly.
+ ;;
+ :paths
+
+ []
+
+
+
+
+ :aliases
+
+ {;; EXTERNAL DEPENDENCIES
+  
+
+  :ext/depstar
+
+  {:replace-deps {com.github.seancorfield/depstar {:mvn/version "2.1.245"}}
+   :maestro/doc  "Packaging jars and uberjars"}
+
+
+  :ext/kaocha
+  {:extra-deps  {lambdaisland/kaocha {:mvn/version "1.0.861"}}
+   :maestro/doc "Testing framework"}
+
+
+
+
+  ;; TASKS
+
+
+  :task/dev
+
+  {:extra-paths     ["dev"]
+   :maestro/doc     "Mandatory alias for development"
+   :maestro/require [:task/no-main]}
+
+
+  :task/jar
+
+  {:exec-args       {:sync-pom true}
+   :exec-fn         hf.depstar/jar
+   :maestro/doc     "Setup for creating jar files"
+   :maestro/require [:ext/depstar]}
+
+
+  :task/no-main
+
+  {:main-opts   []
+   :maestro/doc "Remove any CLI argument provides by a previous alias"}
+
+
+  :task/test
+
+  {:main-opts       ["-m"            "kaocha.runner"
+                     "--config-file" "kaocha.edn"]
+   :maestro/doc     "Mandatory alias for testing"
+   :maestro/require [:ext/kaocha]}
+
+
+  :task/uberjar
+
+  {:exec-args       {:aot      true
+                     :sync-pom true}
+   :exec-fn         hf.depstar/uberjar
+   :maestro/doc     "Setup for creating uberjar files"
+   :maestro/require [:ext/depstar]}
+
+
+
+
+  ;; PROJECTS
+
+
+  :project/all
+
+  {:maestro/doc     "Gathering all other projects"
+   :maestro/require [:project/core
+                     :project/depstar
+                     :project/kaocha]
+   :maestro/root    "project/all"}
+
+
+  :project/core
+
+  {:extra-paths ["project/core/src/main"]
+   :maestro/doc "Core Maestro utilities"}
+
+
+  :project/depstar
+  {:extra-paths     ["project/depstar/src/main"]
+   :maestro/doc     "Provides tasks for jarring and uberjarring with Depstar"
+   :maestro/require [:ext/depstar
+                     :project/core]}
+
+
+  :project/kaocha
+
+  {:extra-paths     ["project/kaocha/src/main"]
+   :maestro/doc     "Provides tasks for running tests with Kaocha"
+   :maestro/require [:ext/kaocha
+                     :project/core]}}}
