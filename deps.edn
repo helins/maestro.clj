@@ -14,6 +14,12 @@
  {;; EXTERNAL DEPENDENCIES
   
 
+  :ext/bb.fs
+
+  {:extra-deps  {babashka/fs {:mvn/version "0.0.5"}}
+   :maestro/doc "Available in BB but must be imported for JVM"}
+
+
   :ext/depstar
 
   {:replace-deps {com.github.seancorfield/depstar {:mvn/version "2.1.245"}}
@@ -81,12 +87,20 @@
                      :project/kaocha]
    :maestro/root    "project/all"}
 
+  ;---
 
   :project/core
 
-  {:extra-paths ["project/core/src/main"]
-   :maestro/doc "Core Maestro utilities"}
+  {:extra-paths     ["project/core/src/main"]
+   :maestro/doc     "Core Maestro utilities"
+   :maestro/require [:ext/bb.fs]}
 
+
+  :test/core
+
+  {:extra-paths ["project/core/src/test"]}
+
+  ;---
 
   :project/depstar
   {:extra-paths     ["project/depstar/src/main"]
@@ -94,6 +108,7 @@
    :maestro/require [:ext/depstar
                      :project/core]}
 
+  ;---
 
   :project/kaocha
 

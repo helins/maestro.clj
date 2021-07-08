@@ -11,8 +11,7 @@
 
   (:refer-clojure :exclude [print])
   (:require [babashka.fs         :as bb.fs]
-            [clojure.string]
-            [helins.maestro.run :as $.run]))
+            [clojure.string]))
 
 
 ;;;;;;;;;; Helpers
@@ -20,7 +19,7 @@
 
 (defn split
 
-  ""
+  "Splits the classpath string into a vector of individual path."
 
   [cp-string]
 
@@ -34,7 +33,7 @@
 
 (defn print-stdin
 
-  ""
+  "Uses [[split]] after reading classpath provided to `*in*` and prints sorted paths."
 
   []
 
