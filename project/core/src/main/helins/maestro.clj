@@ -1,3 +1,8 @@
+;; This Source Code Form is subject to the terms of the Mozilla Public
+;; License, v. 2.0. If a copy of the MPL was not distributed with this
+;; file, You can obtain one at https://mozilla.org/MPL/2.0/.
+
+
 (ns helins.maestro
 
   ""
@@ -5,8 +10,7 @@
   {:author "Adam Helinski"}
 
   (:refer-clojure :exclude [test])
-  (:require [babashka.tasks       :as bb.task]
-            [clojure.edn]
+  (:require [clojure.edn]
             [clojure.string]
             [helins.maestro.aggr  :as $.aggr]
             [helins.maestro.alias :as $.alias]))

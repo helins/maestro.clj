@@ -23,21 +23,6 @@
          {:doc      "Starts dev mode (using '-M' by default) ; same arguments as Clojure CLI"
           :requires ([helins.maestro.run :as $.run])
           :task     ($.run/dev)}
-                                  
-
-
-         dev:templ:copy
-
-         {:doc      "In the directory given as argument, copies `./dev_templ.clj` (public) to `./dev.clj` (private)"
-          :requires ([helins.maestro.dev.templ.run :as $.dev.templ.run])
-          :task     ($.dev.templ.run/copy)}
-
-
-         dev:templ:rm
-
-         {:doc      "In the directory given as argument, deletes `./dev.clj`"
-          :requires ([helins.maestro.dev.templ.run :as $.dev.templ.run])
-          :task     ($.dev.templ/rm)}
 
 
          jar
