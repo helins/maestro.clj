@@ -5,7 +5,7 @@
 
 (ns helins.maestro.kaocha.run
 
-  ""
+  "Running Clojure CLI after doing preparatory work with functions from the [[helins.maestro.kaocha]] namespace."
 
   {:author "Adam Helinski"}
 
@@ -19,7 +19,7 @@
 
 (defn broad
 
-  ""
+  "See [[helins.maestro.kaocha/broad]]."
 
 
   ([]
@@ -37,7 +37,7 @@
 
 (defn narrow
 
-  ""
+  "See [[helins.maestro.kaocha/narrow]]."
 
 
   ([]

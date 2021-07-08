@@ -5,7 +5,10 @@
 
 (ns helins.maestro.kaocha
 
-  ""
+  "Running tests with Kaocha while gathering all needed aliases.
+ 
+   This namespace does only preparatory work while [[helins.maestro.depstar.run]] can be used to
+   directly run Clojure CLI."
 
   {:author "Adam Helinski"}
 
@@ -21,7 +24,7 @@
 
 (defn test
 
-  ""
+  "Common work between [[broad]] and [[narrow]]."
 
   [ctx]
 
@@ -48,7 +51,16 @@
 
 (defn broad
 
-  ""
+  "Generates a file with a unique test that can be included in Kaocha test configuration.
+
+   Optionally, `ctx` may contain:
+
+   | Key | Purpose |
+   |---|---|
+   | `:maestro.kaocha/file` | Filename |
+   | `:maestro.kaocha/root` | Directory where the file will be written |
+  
+   See README for example."
 
 
   ([]
@@ -66,7 +78,8 @@
 
 (defn narrow
 
-  ""
+  "Like [[broad]] but tests only the user given profiles under `:maestro/main+`, no transitive
+   alias."
 
 
   ([]

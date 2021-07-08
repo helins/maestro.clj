@@ -5,7 +5,10 @@
 
 (ns helins.maestro.depstar
 
-  "Provides tasks for jarring and uberjarring via [Depstar](https://github.com/seancorfield/depstar)."
+  "Tasks for jarring and uberjarring via [Depstar](https://github.com/seancorfield/depstar).
+  
+   This namespace does only preparatory work while [[helins.maestro.depstar.run]] can be used to
+   directly run Clojure CLI."
 
   {:author "Adam Helinski"}
 
