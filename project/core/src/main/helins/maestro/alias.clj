@@ -5,14 +5,14 @@
 
 (ns helins.maestro.alias
 
-  ""
+  "Retrieving information about aliases."
 
   {:author "Adam Helinski"}
 
   (:refer-clojure :exclude [test]))
 
 
-(declare related+)
+(declare related)
 
 
 ;;;;;;;;;;
@@ -36,10 +36,10 @@
 
   [ctx alias]
 
-  (related+ ctx
-            :maestro/dev
-            "dev"
-            alias))
+  (related ctx
+           :maestro/dev+
+           "dev"
+           alias))
 
 
 
@@ -94,7 +94,7 @@
 
 
 
-(defn related+
+(defn related
 
   "Retrieves aliases related to `alias`.
 
@@ -104,12 +104,14 @@
   [ctx kw default-ns alias]
 
   (let [deps-alias (ctx :aliases)]
-    (kw deps-alias)
-    (let [alias-default (keyword default-ns
-                                 (name alias))]
-      (when (contains? deps-alias
-                       alias-default)
-        [alias-default]))))
+    (or (get-in deps-alias
+                [alias
+                 kw])
+        (let [alias-default (keyword default-ns
+                                     (name alias))]
+          (when (get deps-alias
+                     alias-default)
+            [alias-default])))))
 
 
 
@@ -130,10 +132,10 @@
 
   [ctx alias]
 
-  (related+ ctx
-            :maestro/test
-            "test"
-            alias))
+  (related ctx
+           :maestro/test+
+           "test"
+           alias))
 
 
 
