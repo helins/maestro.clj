@@ -5,7 +5,7 @@
 
 (ns helins.maestro.depstar
 
-  ""
+  "Provides tasks for jarring and uberjarring via [Depstar](https://github.com/seancorfield/depstar)."
 
   {:author "Adam Helinski"}
 
@@ -13,12 +13,12 @@
             [helins.maestro.alias :as $.alias]))
 
 
-;;;;;;;;;;
+;;;;;;;;;; Private
 
 
-(defn -jar
+(defn- -jar
 
-  ""
+  ;; Takes care of the common work between [[jar]] and [[uberjar]].
 
   [ctx dir alias f]
 
@@ -51,12 +51,19 @@
         f)))
 
 
-;;;;;;;;;;
+;;;;;;;;;; Public
 
 
 (defn jar
 
-  ""
+  "Prepares for creating a jar.
+
+   Assumes Depstar is configured for jarring in the `:task/jar` alias.
+
+   The main alias is the last alias given by the user as a CLI argument. Its data in `deps.edn` must contain
+   a `:maestro/root` which points (if it exists) to the root directory of the related (sub)project.
+
+   The root path is used to outputting the jar to `./build/jar/$ROOT.jar`."
 
 
   ([]
@@ -75,8 +82,14 @@
 
 (defn uberjar
 
-  ""
+  "Prepares for creating a jar.
 
+   Assumes Depstar is configured for jarring in the `:task/uberjar` alias.
+
+   See [[jar]] for comment about main alias and root.
+
+   Also adds a main class argument if the main alias hask a `:maestro/main-class` key in its data that points
+   to it."
 
   ([]
 

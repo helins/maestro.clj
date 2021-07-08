@@ -5,7 +5,10 @@
 
 (ns helins.maestro.depstar.run
 
-  ""
+  "Tasks for jarring and uberjarring using [Depstar](https://github.com/seancorfield/depstar).
+  
+   Shortcuts for running Clojure CLI after doing preparatory work using functions from the
+   [[helins.maestro.depstar]] namespace."
 
   {:author "Adam Helinski"}
 
@@ -19,7 +22,7 @@
 
 (defn jar
 
-  ""
+  "See [[helins.maestro.depstar/jar]]."
 
 
   ([]
@@ -37,7 +40,7 @@
 
 (defn uberjar
 
-  ""
+  "See [[helins.maestro.depstar/uberjar]]."
 
 
   ([]
