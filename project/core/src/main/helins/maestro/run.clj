@@ -5,7 +5,10 @@
 
 (ns helins.maestro.run
 
-  ""
+  "Running Clojure CLI.
+  
+   Shortcuts that call directly related functions in the [[helins.maestro.cmd]] namespace, assuming
+   there is no need to modify the context before execution."
 
   {:author "Adam Helinski"}
 
@@ -19,7 +22,9 @@
 
 (defn clojure
 
-  ""
+  "Executes Clojure CLI.
+  
+   Command is computed using [[helins.maestro/cmd]]."
 
   [ctx]
 
@@ -33,7 +38,7 @@
 
 (defn dev
 
-  ""
+  "See [[helins.maestro.cmd/dev]]."
 
 
   ([]
@@ -51,7 +56,7 @@
 
 (defn function
 
-  ""
+  "See [[helins.maestro.cmd/function]]."
 
 
   ([]
@@ -67,10 +72,26 @@
 
 
 
+(defn main
+
+  "See [[helins.maestro.cmd/main]]."
+
+  ([]
+
+   (main ($/ctx)))
+
+
+  ([ctx]
+
+   (-> ctx
+       $.cmd/main
+       clojure)))
+
+
+
 (defn main-class
 
-  ""
-
+  "See [[helins.maestro.cmd/main-class]]."
 
   ([]
 
