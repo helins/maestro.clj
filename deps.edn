@@ -87,6 +87,7 @@
                      :project/kaocha]
    :maestro/root    "project/all"}
 
+
   ;---
 
   :project/core
@@ -96,6 +97,12 @@
    :maestro/require [:ext/bb.fs]}
 
 
+  :dev/core
+
+  {:extra-paths []
+   :maestro/env {"FOO" "BAR"}}
+
+
   :test/core
 
   {:extra-paths ["project/core/src/test"]}
@@ -103,10 +110,38 @@
   ;---
 
   :project/depstar
+
   {:extra-paths     ["project/depstar/src/main"]
    :maestro/doc     "Provides tasks for jarring and uberjarring with Depstar"
    :maestro/require [:ext/depstar
                      :project/core]}
+
+  :dev/depstar
+
+  {:extra-paths []}
+
+ 
+  :test/depstar
+
+  {:extra-paths []}
+
+  ;---
+
+  :project/foo
+
+  {:maestro/doc        "NOT A REAL PROJECT ; Used for tests"
+   :maestro/main-class helins.maestro.foo
+   :maestro/require    [:project/kaocha]}
+
+
+  :dev/foo
+
+  {:extra-paths []}
+
+
+  :test/foo
+
+  {:extra-paths []}
 
   ;---
 
@@ -115,4 +150,14 @@
   {:extra-paths     ["project/kaocha/src/main"]
    :maestro/doc     "Provides tasks for running tests with Kaocha"
    :maestro/require [:ext/kaocha
-                     :project/core]}}}
+                     :project/core]}
+
+
+  :dev/kaocha
+
+  {:extra-paths []}
+
+ 
+  :test/kaocha
+
+  {:extra-paths []}}}
