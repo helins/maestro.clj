@@ -5,7 +5,9 @@
 
 (ns helins.maestro.cmd
 
-  ""
+  "Preparing and computing needed arguments for the Clojure CLI.
+  
+   No actual running happens in this namespace."
 
   {:author "Adam Helinski"}
 
@@ -20,7 +22,8 @@
 
 (defn require-alias+
 
-  ""
+  "Walks the given `alias+` collection with [[helins.maestro/walk]] ensuring current aliases
+   in `:maestro/require` stay at the beginning of the sequence."
 
   [ctx kw-track alias+]
 
@@ -41,7 +44,7 @@
 
 (defn require-dev+
 
-  ""
+  "Uses [[require-alias+]] to require all dev aliases."
 
 
   ([ctx]
@@ -61,7 +64,7 @@
 
 (defn require-test+
 
-  ""
+  "Uses [[require-alias+]] to require all test aliases."
 
 
   ([ctx]
@@ -83,7 +86,11 @@
 
 (defn dev
 
-  ""
+  "Prepares for dev mode:
+  
+   - Prepends `:task/test´ and `:task/dev` to given aliases walking
+   - Requires and walk all dev aliases
+   - Requires and walk all tests aliases"
 
   [ctx]
 
@@ -101,7 +108,7 @@
 
 (defn function
 
-  ""
+  "Walks aliases in `:maestro/main+` and preparing for executing with '-X' by default."
 
   [ctx]
 
@@ -114,7 +121,7 @@
 
 (defn main
 
-  ""
+  "Walks aliases in `:maestro/main+` and preparing for executing with '-M' by default."
 
   [ctx]
 
@@ -127,7 +134,8 @@
 
 (defn main-class
 
-  ""
+  "Like [[main]] but prepends to `:maestro/arg+` (CLI arguments) the main class found under `:maestro/main-class` in the data
+   of the last user given alias in `:maestro/main+`."
 
   [ctx]
 
@@ -150,7 +158,10 @@
 
 (defn test
 
-  ""
+  "Prepares for testing:
+  
+   - Appends `:task/test` alias to given aliases before walking
+   - Require and walk all test aliases returned by applying `f-test-alias+` on `ctx` after previous step."
 
   [ctx f-test-alias+]
 
@@ -166,7 +177,7 @@
 
 (defn test-broad
 
-  ""
+  "Like [[test]] but ensures all transitives test aliases are required."
 
   [ctx]
 
@@ -177,7 +188,7 @@
 
 (defn test-narrow
 
-  ""
+  "Like [[test]] but ensures only the test aliases related to the user given ones are required, not all transitives ones."
 
   [ctx]
 
