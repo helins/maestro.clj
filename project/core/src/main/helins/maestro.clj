@@ -5,7 +5,9 @@
 
 (ns helins.maestro
 
-  ""
+  "Core namespace hosting miscellaneous utilities.
+  
+   See [[ctx]]."
 
   {:author "Adam Helinski"}
 
@@ -21,11 +23,16 @@
 
 (defn aggr
 
-  ""
+  "Default alias aggregating function for [[walk]].
 
-  [acc alias config]
+   Uses:
 
-  (-> acc
+   - [[helins.maestro.aggr/alias]]
+   - [[helins.maestro.aggr/env]]"
+
+  [ctx alias config]
+
+  (-> ctx
       ($.aggr/alias alias
                     config)
       ($.aggr/env alias
@@ -35,7 +42,10 @@
 
 (defn walk
 
-  ""
+  "Walks the given `alias+` collection (retrieves those found under `:maestro/main+` by default).
+  
+   Walking means each alias and all the transitive aliases it requires using `:maestro/require` in its
+   data in `deps.edn` will go through the aggregating function found under `:maestro/aggr` in `ctx`."
 
 
   ([ctx]
@@ -74,7 +84,7 @@
 
 (defn deps-edn
 
-  ""
+  "Reads and returns the `deps.edn` file."
 
   ([]
 
@@ -93,6 +103,16 @@
 
 (defn ctx
 
+  "A context designates the map that is omnipresent throughout all this tool.
+  
+   It is an augmented `deps.edn` map which adds:
+
+   | Key | Purpose |
+   |---|---|
+   | `:maestro/aggr` | See [[aggr]]. |
+   | `:maestro/arg+` | CLI arguments, removing the first one which is mandatory and specifies deps aliases |
+   | `:maestro/main+` | Aliases specified by the user in the CLI arguments |
+   | `:maestro/require | Empty vector that will mostlikely be used to compute all required aliases |"
 
   ([]
 
@@ -144,7 +164,13 @@
 
 (defn cmd
 
-  ""
+  "Given `ctx`, returns a Clojure CLI command based on:
+  
+   | Key | Purpose |
+   |---|---|
+   | `:maestro/arg+ | See [[ctx]] |
+   | `:maestro/exec-char` | Eg. \"M\", \"X\" |
+   | `:maestro/require` | See [[ctx]] |"
 
   [ctx]
 
