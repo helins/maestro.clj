@@ -51,16 +51,6 @@
 ;;;;;;;;;; Required aliases
 
 
-(def alias-test+
-
-  "All test aliases."
-
-  [:test/kaocha
-   :test/core
-   :test/foo])
-
-
-
 (def ctx-simple
 
   "Simplified basic ctx for assertions"
@@ -86,7 +76,9 @@
                                        :dev/foo]
                    :maestro/env       {"FOO" "BAR"}
                    :maestro/exec-char \M
-                   :maestro/test+     alias-test+
+                   :maestro/test+     [:test/kaocha
+                                       :test/core
+                                       :test/foo]
                    :maestro/require   [:test/kaocha
                                        :test/core
                                        :test/foo
@@ -134,9 +126,11 @@
 (T/deftest test-broad
 
   (T/is (= (merge ctx-simple
-                  {:maestro/test+     alias-test+
-                   :maestro/require   [:test/kaocha
-                                       :test/core
+                  {:maestro/test+     [:test/core
+                                       :test/kaocha
+                                       :test/foo]
+                   :maestro/require   [:test/core
+                                       :test/kaocha
                                        :test/foo
                                        :ext/kaocha
                                        :ext/bb.fs

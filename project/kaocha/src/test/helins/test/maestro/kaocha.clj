@@ -19,7 +19,7 @@
 
 
 (def ctx
-     (binding [*command-line-args* [":project/kaocha"]]
+     (binding [*command-line-args* [":project/foo"]]
        ($/ctx)))
 
 
@@ -31,15 +31,18 @@
   (T/is (= {:maestro/arg+      []
             :maestro/env       nil
             :maestro/exec-char \M
-            :maestro/main+     [:project/kaocha]
-            :maestro/test+     [:test/kaocha
-                                :test/core]
-            :maestro/require   [:test/kaocha
-                                :test/core
+            :maestro/main+     [:project/foo]
+            :maestro/test+     [:test/core
+                                :test/kaocha
+                                :test/foo]
+            :maestro/require   [:test/core
+                                :test/kaocha
+                                :test/foo
                                 :ext/kaocha
                                 :ext/bb.fs
                                 :project/core
                                 :project/kaocha
+                                :project/foo
                                 :task/test]}
            ($.test.util/simplify-ctx ($.kaocha/broad ctx)))))
 
@@ -50,12 +53,13 @@
   (T/is (= {:maestro/arg+      []
             :maestro/env       nil
             :maestro/exec-char \M
-            :maestro/main+     [:project/kaocha]
-            :maestro/test+     [:test/kaocha]
-            :maestro/require   [:test/kaocha
+            :maestro/main+     [:project/foo]
+            :maestro/test+     [:test/foo]
+            :maestro/require   [:test/foo
                                 :ext/kaocha
                                 :ext/bb.fs
                                 :project/core
                                 :project/kaocha
+                                :project/foo
                                 :task/test]}
            ($.test.util/simplify-ctx ($.kaocha/narrow ctx)))))

@@ -27,8 +27,9 @@
 
 
   :ext/kaocha
-  {:extra-deps  {lambdaisland/kaocha {:mvn/version "1.0.861"}}
-   :maestro/doc "Testing framework"}
+  {:extra-deps    {lambdaisland/kaocha {:mvn/version "1.0.861"}}
+   :maestro/doc   "Testing framework"
+   :maestro/test+ []}
 
 
 
@@ -123,7 +124,7 @@
  
   :test/depstar
 
-  {:extra-paths []}
+  {:extra-paths ["project/depstar/src/test"]}
 
   ;---
 
@@ -131,7 +132,8 @@
 
   {:maestro/doc        "NOT A REAL PROJECT ; Used for tests"
    :maestro/main-class helins.maestro.foo
-   :maestro/require    [:project/kaocha]}
+   :maestro/require    [:project/kaocha]
+   :maestro/root       "project/foo"}
 
 
   :dev/foo
