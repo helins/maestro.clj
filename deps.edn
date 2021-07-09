@@ -59,7 +59,8 @@
 
   :task/test
 
-  {:main-opts       ["-m"            "kaocha.runner"
+  {:extra-paths     ["project/test/src/clj/test"]
+   :main-opts       ["-m"            "kaocha.runner"
                      "--config-file" "kaocha.edn"]
    :maestro/doc     "Mandatory alias for testing"
    :maestro/require [:ext/kaocha]}
@@ -86,7 +87,6 @@
                      :project/depstar
                      :project/kaocha]
    :maestro/root    "project/all"}
-
 
   ;---
 
@@ -160,4 +160,4 @@
  
   :test/kaocha
 
-  {:extra-paths []}}}
+  {:extra-paths ["project/kaocha/src/test"]}}}

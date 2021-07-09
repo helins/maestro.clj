@@ -55,10 +55,10 @@
 
    Optionally, `ctx` may contain:
 
-   | Key | Purpose |
-   |---|---|
-   | `:maestro.kaocha/file` | Filename |
-   | `:maestro.kaocha/root` | Directory where the file will be written |
+   | Key | Purpose | Default |
+   |---|---|---|
+   | `:maestro.kaocha/file` | Filename | \"maestro_kaocha.edn\" |
+   | `:maestro.kaocha/root` | Directory where the file will be written | \"private\" |
   
    See README for example."
 
