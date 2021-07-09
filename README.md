@@ -77,8 +77,8 @@ $ bb test :project/kaocha
 # Testing the Kaocha project only, not test paths for transitive projects
 $ bb test:narrow :projeect/kaocha
 
-# Printing classpath for core tests, '-A' is mentioned explicitly
-$ bb test -A:project/core -Spath | bb cp
+# Printing classpath for core in dev mode, '-A' is mentioned explicitly
+$ bb dev -A:project/core -Spath | bb cp
 ```
 
 
