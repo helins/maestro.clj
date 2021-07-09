@@ -9,7 +9,7 @@ This tools aims to provide a reasonable and flexible solution focusing on:
 - Pinning external dependencies, avoiding any duplication
 - Promoting documentation of repository structure and overview
 
-Not yet released, please use Git coordinates in your `bb.edn` file or fork this repository.
+Not yet released, fork this repository or see build instructions below.
 
 
 ## Concept
@@ -90,6 +90,17 @@ Currently:
 
 - [Depstar](./project/depstar), for jarring and uberjarring
 - [Kaocha](./project/kaocha), for running tests
+
+
+## Building locally
+
+While not released, building a local jar:
+
+```bash
+$ bb jar :project/all
+
+# See ./build/jar/project/all.jar
+```
 
 
 ## Roadmap
