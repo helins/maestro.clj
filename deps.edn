@@ -34,7 +34,13 @@
 
 
 
-  ;; TASKS
+  ;; GENERIC TASKS
+
+
+  :task/deploy
+  {:exec-args  {:installer :remote}
+   :exec-fn    deps-deploy.deps-deploy/deploy
+   :extra-deps {slipset/deps-deploy {:mvn/version "0.1.5"}}}
 
 
   :task/dev
