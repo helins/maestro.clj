@@ -1,23 +1,23 @@
 # Maestro, calmly orchestrating your Clojure/script monorepo
 
+[![Clojars](https://img.shields.io/clojars/v/io.helins/maestro.svg)](https://clojars.org/io.helins/maestro)
+
 Leveraging [Clojure Deps](https://clojure.org/guides/deps_and_cli) and [Babashka](https://github.com/babashka/babashka), managing a repository
 hosting any number of projects becomes a breeze.
 
 This tools aims to provide a reasonable and flexible solution focusing on:
 
-- Building the exact classpath that is needed, for the required purposes, nothing more
+- Building the exact classpath that is needed, for the required purposes, nothing more, nothing less
 - Pinning external dependencies, avoiding any duplication
 - Promoting documentation of repository structure and overview
-
-Not yet released, fork this repository or see build instructions below.
 
 
 ## Concept
 
 In essence, the idea is to use one `deps.edn` alias for any unit of source: external libraries, internal ones, projects in the repository, etc.
 
-This principle is demonstrated in this repository's own [./deps.edn file](./deps.edn). One can see that aliases are namespaced with recognizable names::
-`:ext/kaocha` for the alias that imports [Kaocha](https://github.com/lambdaisland/kaocha), `:project/core` for core utilities, `project/kaocha` for
+This principle is demonstrated in this repository's own [./deps.edn file](./deps.edn). One can see that aliases are namespaced with recognizable names:
+`:ext/kaocha` for the alias importing [Kaocha](https://github.com/lambdaisland/kaocha), `:project/core` for core utilities, `project/kaocha` for
 utilities targetting Kaocha, etc.
 
 By being so granular and by providing a way for an alias to require other aliases, it becomes surprisingly simple to build arbitrarily complex projects
@@ -26,7 +26,7 @@ and provide a plethora of useful features.
 
 ## Writing an alias
 
-The namespaces of this [./deps.edn file](./deps.edn]'s aliases are mostly arbitrary. One can choose whatever describes best the organization of a repository. We
+The namespaces of this [./deps.edn file](./deps.edn)'s aliases are mostly arbitrary. One can choose whatever describes best the organization of a repository. We
 recommend:
 
 | Recommended ns | For | Example |
@@ -82,25 +82,42 @@ $ bb dev -A:project/core -Spath | bb cp
 ```
 
 
-## In addition
+## Targets
+
+This abstraction allows a dependency to change shape when needed. A common example is requiring a local dependency during dev but an external one in production.
+For instance, `:project/kaocha` requires `:project/core`. During development, local files are needed but when building a release jar, `:project/kaocha` should
+not package `:project/core`. Instead, it should link to the `:project/core` package deployed on Clojars.
+
+This is why the following figures in the alias data of `:project/kaocha`:
+
+```clojure
+{:maestro/require [:ext/kaocha
+                   {default :project/core
+                    release :release/core}]}
+```
+
+Instead of a mere alias, there is a map containing both options: `:project/core` provides extra paths if the `default` target is activated while `:release/core`
+provides an extra dep if the `release` target is activated.
+
+Babashka tasks that accepts aliases also optionally take a target (`default` by default). For instance, building a release jar for `:project/kaocha`:
+
+```bash
+$ bb jar release :project/kaocha
+```
+
+
+## Plugins
 
 Support for common tools and PRs are welcome.
 
+Plugins provide Babashka tasks which integrates common tools with Maestro. Currently, document does not build on Cljdoc. However, namespaces are well-documented.
+
 Currently:
 
-- [Depstar](./project/depstar), for jarring and uberjarring
-- [Kaocha](./project/kaocha), for running tests
-
-
-## Building locally
-
-While not released, building a local jar:
-
-```bash
-$ bb jar :project/all
-
-# See ./build/jar/project/all.jar
-```
+| Plugin | Purpose | Clojars |
+|---|---|---|
+| [Depstar](./project/depstar) | Jarring and uberjarring | [![Clojars](https://img.shields.io/clojars/v/io.helins/maestro.depstar.svg)](https://clojars.org/io.helins/maestro.depstar) |
+| [Kaocha](./project/kaocha)   | Running tests           | [![Clojars](https://img.shields.io/clojars/v/io.helins/maestro.kaocha.svg)](https://clojars.org/io.helins/maestro.kaocha)   |
 
 
 ## Roadmap
