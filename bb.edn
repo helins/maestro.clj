@@ -25,6 +25,18 @@
           :task     ($.run/dev)}
 
 
+         install
+
+         {:doc  "Install alias to local Maven repo"
+          :task (clojure (let [dir (.substring (first *command-line-args*)
+                                               1)]
+                           (format "-X:task/install :artifact '%s' :pom-file '%s'"
+                                   (pr-str (format "build/jar/%s.jar"
+                                                   dir))
+                                   (pr-str (format "%s/pom.xml"
+                                                   dir)))))}
+
+
          jar
 
          {:doc      "Packages the given aliases in a jar ; same arguments as Depstar"
@@ -77,6 +89,6 @@
 
          uberjar
 
-         {:doc      "Packages the given aliases in an uberjar ; same arguments as Depstart"
+         {:doc      "Packages the given aliases in an uberjar ; same arguments as Depstar"
           :requires ([helins.maestro.depstar.run :as $.depstar.run])
           :task     ($.depstar.run/uberjar)}}}

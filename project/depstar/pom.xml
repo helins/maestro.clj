@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>io.helins</groupId>
+  <artifactId>maestro.depstar</artifactId>
+  <version>0.0.0-alpha0</version>
+  <name>Maestro.Depstar</name>
+  <description>Maestro plugin for Depstar</description>
+  <url>https://github.com/helins/maestro.clj</url>
+  <licenses>
+    <license>
+      <name>Mozilla Public License Version 2.0</name>
+      <url>https://www.mozilla.org/en-US/MPL/2.0/</url>
+    </license>
+  </licenses>
+  <developers>
+    <developer>
+      <name>Adam Helinski</name>
+      <email>adam@helins.io</email>
+      <url>http://www.helins.io</url>
+    </developer>
+  </developers>
+  <scm>
+    <url>https://github.com/helins/maestro.clj</url>
+    <connection>scm:git:git://github.com/helins/maestro.clj.git</connection>
+    <developerConnection>scm:git:ssh://git@github.com/helins/maestro.clj.git</developerConnection>
+    <tag>HEAD</tag>
+  </scm>
+  <repositories>
+    <repository>
+      <id>clojars</id>
+      <url>https://repo.clojars.org/</url>
+    </repository>
+  </repositories>
+  <distributionManagement>
+    <repository>
+      <id>clojars</id>
+      <name>Clojars repository</name>
+      <url>https://clojars.org/repo</url>
+    </repository>
+  </distributionManagement>
+  <dependencies>
+    <dependency>
+      <groupId>org.clojure</groupId>
+      <artifactId>clojure</artifactId>
+      <version>1.10.3</version>
+    </dependency>
+    <dependency>
+      <groupId>com.github.seancorfield</groupId>
+      <artifactId>depstar</artifactId>
+      <version>2.1.278</version>
+    </dependency>
+    <dependency>
+      <groupId>io.helins</groupId>
+      <artifactId>maestro</artifactId>
+      <version>0.0.0-alpha0</version>
+    </dependency>
+  </dependencies>
+</project>

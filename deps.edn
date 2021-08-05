@@ -22,7 +22,7 @@
 
   :ext/depstar
 
-  {:replace-deps {com.github.seancorfield/depstar {:mvn/version "2.1.245"}}
+  {:replace-deps {com.github.seancorfield/depstar {:mvn/version "2.1.278"}}
    :maestro/doc  "Packaging jars and uberjars"}
 
 
@@ -42,6 +42,13 @@
   {:extra-paths     ["dev"]
    :maestro/doc     "Mandatory alias for development"
    :maestro/require [:task/no-main]}
+
+
+  :task/install
+  {:exec-args   {:installer :local}
+   :exec-fn     deps-deploy.deps-deploy/deploy
+   :extra-deps  {slipset/deps-deploy {:mvn/version "0.1.5"}}
+   :maestro/doc "Local install"}
 
 
   :task/jar
@@ -86,8 +93,8 @@
   {:maestro/doc     "Gathering all other projects"
    :maestro/require [:project/core
                      :project/depstar
-                     :project/kaocha]
-   :maestro/root    "project/all"}
+                     :project/kaocha]}
+
 
   ;---
 
@@ -95,13 +102,19 @@
 
   {:extra-paths     ["project/core/src/main"]
    :maestro/doc     "Core Maestro utilities"
-   :maestro/require [:ext/bb.fs]}
+   :maestro/require [:ext/bb.fs]
+   :maestro/root    "project/core"}
 
 
   :dev/core
 
   {:extra-paths ["project/core/src/dev"]
    :maestro/env {"FOO" "BAR"}}
+
+
+  :release/core
+
+  {:extra-deps {io.helins/maestro {:mvn/version "0.0.0-alpha0"}}}
 
 
   :test/core
@@ -115,7 +128,10 @@
   {:extra-paths     ["project/depstar/src/main"]
    :maestro/doc     "Provides tasks for jarring and uberjarring with Depstar"
    :maestro/require [:ext/depstar
-                     :project/core]}
+                     {default :project/core
+                      release :release/core}]
+   :maestro/root    "project/depstar"}
+
 
   :dev/depstar
 
@@ -152,7 +168,9 @@
   {:extra-paths     ["project/kaocha/src/main"]
    :maestro/doc     "Provides tasks for running tests with Kaocha"
    :maestro/require [:ext/kaocha
-                     :project/core]}
+                     {default :project/core
+                      release :release/core}]
+   :maestro/root    "project/kaocha"}
 
 
   :dev/kaocha
