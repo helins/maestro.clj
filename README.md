@@ -2,6 +2,15 @@
 
 [![Clojars](https://img.shields.io/clojars/v/io.helins/maestro.svg)](https://clojars.org/io.helins/maestro)
 
+**ARCHIVED**
+
+Ideas explored in this first attempt flourished into a new paradigm. The new version of Maestro is
+maintained in the [public monorepo of Protosens SRL](https://github.com/protosens/monorepo.cljc),
+itself managed using Maestro and a growing collection of related tools and plugins.
+
+
+---
+
 Leveraging [Clojure Deps](https://clojure.org/guides/deps_and_cli) and [Babashka](https://github.com/babashka/babashka), managing a repository
 hosting any number of projects becomes a breeze.
 
